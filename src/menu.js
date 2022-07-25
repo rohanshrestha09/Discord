@@ -1,4 +1,4 @@
-const informationBody = [
+const menuInformation = [
   {
     name: "INFORMATION BOARD",
     cont: [
@@ -24,7 +24,7 @@ const informationBody = [
   },
 ];
 
-const title = $("<div></div>")
+const Title = $("<div></div>")
   .addClass("flex flex-col align-start px-4 gap-1.5 w-full")
   .append(
     $("<p></p>")
@@ -42,7 +42,7 @@ const title = $("<div></div>")
       )
   );
 
-const key = $("<div></div>")
+const Key = $("<div></div>")
   .addClass("flex items-center gap-2 px-4 w-full")
   .append(
     $("<img/>").attr("src", "images/lock.svg").addClass("h-[17.5px] w-4"),
@@ -51,7 +51,32 @@ const key = $("<div></div>")
       .addClass("font-[450] text-[.9rem] text-[#96989D]")
   );
 
-const menu = informationBody.map((element, index) =>
+const menuBody = (el, ind, index) => {
+  return $("<div></div>")
+    .addClass(`w-full px-2`)
+    .append(
+      $("<div></div>")
+        .addClass(
+          `flex relative gap-2 items-center w-full px-2 py-[5px] rounded-md text-[#96989D] transition-all cursor-pointer hover:text-white hover:bg-[#42464D] ${
+            !index && !ind && "bg-[#42464D] !text-white"
+          } ${
+            el.dot &&
+            "!text-white after:h-[9px] after:content-[''] after:absolute after:-left-3 after:w-[8px] after:bg-[white] after:rounded-full"
+          } before:transition-all before:opacity-0 hover:before:opacity-100 before:bg-[url('images/user.svg')] before:bg-center before:bg-no-repeat before:bg-contain before:bg-origin-padding before:p-2 before:absolute before:right-3`
+        )
+        .append(
+          $("<img/>").attr("src", el.src).addClass("h-[1.17rem] w-[1rem]"),
+          $("<p></p>").text(el.name).addClass(`text-[.9rem] tracking-tight`),
+          !index &&
+            !ind &&
+            $("<img/>")
+              .attr("src", "images/user.svg")
+              .addClass("h-[1.17rem] w-[1rem] absolute right-3")
+        )
+    );
+};
+
+const Menu = menuInformation.map((element, index) =>
   $("<div></div>")
     .addClass("flex flex-col gap-1 w-full")
     .append(
@@ -65,38 +90,11 @@ const menu = informationBody.map((element, index) =>
           $("<p></p>").text(`${element.name}`),
           $("<span></span>").addClass("mt-[1.5px] h-[2.5px] w-6 bg-[#96989D]")
         ),
-      ...element.cont.map((el, ind) =>
-        $("<div></div>")
-          .addClass(`w-full px-2`)
-          .append(
-            $("<div></div>")
-              .addClass(
-                `flex relative gap-2 items-center w-full px-2 py-[5px] rounded-md text-[#96989D] transition-all cursor-pointer hover:text-white hover:bg-[#42464D] ${
-                  !index && !ind && "bg-[#42464D] !text-white"
-                } ${
-                  el.dot &&
-                  "!text-white after:h-[9px] after:content-[''] after:absolute after:-left-3 after:w-[8px] after:bg-[white] after:rounded-full"
-                } before:transition-all before:opacity-0 hover:before:opacity-100 before:bg-[url('images/user.svg')] before:bg-center before:bg-no-repeat before:bg-contain before:bg-origin-padding before:p-2 before:absolute before:right-3`
-              )
-              .append(
-                $("<img/>")
-                  .attr("src", el.src)
-                  .addClass("h-[1.17rem] w-[1rem]"),
-                $("<p></p>")
-                  .text(el.name)
-                  .addClass(`text-[.9rem] tracking-tight`),
-                !index &&
-                  !ind &&
-                  $("<img/>")
-                    .attr("src", "images/user.svg")
-                    .addClass("h-[1.17rem] w-[1rem] absolute right-3")
-              )
-          )
-      )
+      ...element.cont.map((el, ind) => menuBody(el, ind, index))
     )
 );
 
-const users = $("<div></div>")
+const Users = $("<div></div>")
   .addClass(
     "fixed flex items-center gap-2.5 bg-[#292B2F] h-14 w-full bottom-0 px-2"
   )
@@ -119,4 +117,4 @@ const users = $("<div></div>")
     )
   );
 
-export default [title, key, menu, users];
+export default [Title, Key, Menu, Users];

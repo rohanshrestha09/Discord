@@ -1,4 +1,4 @@
-const navIcons = [
+const icons = [
   { id: true, src: "images/discord.svg" },
   { id: false, src: "images/itsnp.png" },
   { id: false, src: "images/anim.jpg" },
@@ -8,7 +8,15 @@ const navIcons = [
   { id: true, src: "images/download.svg" },
 ];
 
-const Nav = navIcons.map((el, index) => {
+const navIcons = (el, index) => {
+  return $("<div></div>").addClass(
+    `rounded-full hover:rounded-2xl w-[65%] h-full bg-cover bg-no-repeat bg-center bg-origin-content ${
+      el.id && "p-3.5"
+    } ${index === 1 && "rounded-2xl"}  bg-[#36393F] bg-[url(${el.src})]`
+  );
+};
+
+const Nav = icons.map((el, index) => {
   return $("<div></div>")
     .addClass(
       `flex items-center justify-center relative isolate p-0 w-full h-12 cursor-pointer ${
@@ -17,13 +25,7 @@ const Nav = navIcons.map((el, index) => {
         index === 1 && "before:h-10 before:rounded-xl"
       }`
     )
-    .append(
-      $("<div></div>").addClass(
-        `rounded-full hover:rounded-2xl w-[65%] h-full bg-cover bg-no-repeat bg-center bg-origin-content ${
-          el.id && "p-3.5"
-        } ${index === 1 && "rounded-2xl"}  bg-[#36393F] bg-[url(${el.src})]`
-      )
-    );
+    .append(navIcons(el, index));
 });
 
 Nav.splice(

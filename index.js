@@ -1,6 +1,8 @@
 import Nav from "./src/nav.js";
 import Menu from "./src/menu.js";
-import Home from "./src/home.js";
+import Main from "./src/main.js";
+import SearchBar from "./src/searchBar.js";
+import Friends from "./src/friends.js";
 
 const mainClass = [
   {
@@ -34,5 +36,16 @@ $(function () {
 
   $("#menu").append(...Menu);
 
-  $("#home").append(Home);
+  $("#home").append(
+    $("<div></div>")
+      .addClass("grid grid-cols-1 grid-rows-[3rem_auto] w-full h-full")
+      .append(
+        SearchBar,
+        $("<div></div>")
+          .addClass(
+            "grid grid-rows-1 sm:grid-cols-[auto_15rem] grid-cols-[auto_11.5rem] overflow-hidden"
+          )
+          .append(Main, Friends)
+      )
+  );
 });
