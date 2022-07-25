@@ -1,3 +1,3 @@
-# DIscord-Figma
+# Discord Clone
 
 ![image](/Container.png)
